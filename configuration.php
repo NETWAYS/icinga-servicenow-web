@@ -4,6 +4,12 @@
 
 $this->provideConfigTab('daemon', [
     'label' => t('ServiceNow Daemon'),
-    'title' => t('Configure the ServiceNow Daemon'),
+    'title' => t('Configure the ServiceNow daemon'),
     'url'   => 'config/daemon',
+]);
+
+$this->provideConfigTab('database', [
+    'label' => t('Database'),
+    'title' => t('Configure the database backend'),
+    'url'   => 'config/database'
 ]);

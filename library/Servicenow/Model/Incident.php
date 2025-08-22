@@ -21,13 +21,17 @@ class Incident extends Model
         return [
             'id',
             'sys_id',
+            'incident_number',
             'host_name',
             'service_name',
+            'is_volatile',
+            'notification_name',
+            'notification_output',
             'notification_type',
             'notification_state',
-            'notification_output',
-            'created_at',
-            'last_updated_at'
+            'template',
+            'db_created_at',
+            'db_last_updated_at',
         ];
     }
 
