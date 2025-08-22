@@ -26,7 +26,7 @@ class SnowConfigForm extends ConfigForm
             'label' => t('API URL'),
             'description' => t('The URL for Servicenow including the scheme'),
             'required' => true,
-            'placeholder' => 'http://localhost:8081',
+            'placeholder' => 'http://localhost:5910',
         ]);
 
         $this->addElement('text', 'servicenow_api_username', [

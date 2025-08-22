@@ -34,7 +34,7 @@ class Snow
     ) {
         $this->client = new Client([
             'timeout' => $timeout,
-            'auth' => [$username, $password],
+            // 'auth' => [$username, $password],
             'verify' => $tlsVerify
         ]);
 
@@ -141,4 +141,5 @@ class Snow
         $tlsVerify = !(bool) $moduleConfig->get('servicenow', 'api_tls_insecure', $default['api_tls_insecure']);
 
         return new static($baseURI, $username, $password, $timeout, $tlsVerify);
-    }}
+    }
+}
