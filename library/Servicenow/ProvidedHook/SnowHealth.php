@@ -37,7 +37,7 @@ class SnowHealth extends HealthHook
         $details = json_decode($output, true);
         $database = $details['database'] ?? "";
 
-        if ($database == 'OK') {
+        if ($database === 'OK') {
             $this->setState(self::STATE_OK);
         } else {
             $this->setState(self::STATE_WARNING);

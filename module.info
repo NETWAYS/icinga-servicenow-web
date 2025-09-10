@@ -2,4 +2,7 @@ module: servicenow
 Version: 0.1.0
 Requires:
   Libraries: icinga-php-library (>=0.15.0), icinga-php-thirdparty (>=0.12.0)
+  Modules: monitoring (>= 2.9.0), icingadb (>= 1.0.0)
 Description: Icinga ServiceNow Web
+ This module allows to send notifications to ServiceNow and integrates into
+ the Icinga Web 2 frontend.

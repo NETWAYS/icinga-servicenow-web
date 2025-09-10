@@ -3,6 +3,7 @@
 namespace Icinga\Module\Servicenow\Controllers;
 
 use Icinga\Module\Servicenow\Forms\SnowConfigForm;
+use Icinga\Module\Servicenow\Forms\DatabaseConfigForm;
 
 use Icinga\Application\Config;
 use Icinga\Web\Form;
@@ -19,6 +20,18 @@ class ConfigController extends CompatController
         $this->assertPermission('config/modules');
 
         parent::init();
+    }
+
+    public function databaseAction()
+    {
+        $form = (new DatabaseConfigForm())
+            ->setIniConfig(Config::module('servicenow'));
+
+        $form->handleRequest();
+
+        $this->mergeTabs($this->Module()->getConfigTabs()->activate('database'));
+
+        $this->addFormToContent($form);
     }
 
     public function daemonAction()
