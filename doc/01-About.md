@@ -1,4 +1,4 @@
-# Icinga ServiceNow Integration Web
+# Icinga Web ServiceNow Integration Web
 
 An Icinga2 integration with ServiceNow Incident Management.
 
