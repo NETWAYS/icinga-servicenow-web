@@ -16,18 +16,28 @@ class IncidentsController extends CompatController
 
     public function indexAction()
     {
-        $host = $this->params->get('host');
+        $host = $this->params->getRequired('host');
         $service = $this->params->get('service');
 
         $this->addContent(Html::tag('h1', 'ServiceNow Incidents'));
 
         $db = $this->getDb();
 
+        $f = Filter::all(
+            Filter::equal('host_name', $host),
+            Filter::unlike('service_name', '*')
+        );
+
+        if (isset($service)) {
+            $f = Filter::all(
+                Filter::equal('host_name', $host),
+                Filter::equal('service_name', $service)
+            );
+        }
+
         $incidents = Incident::on($db)
-            ->filter(Filter::all(
-                Filter::equal('service_name', $service),
-                Filter::equal('host_name', $host)
-            ));
+            ->filter($f)
+            ->orderBy('db_created_at', SORT_ASC);
 
         $this->addContent(new IncidentTable($incidents));
     }

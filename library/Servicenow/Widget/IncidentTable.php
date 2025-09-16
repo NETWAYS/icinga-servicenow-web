@@ -6,13 +6,18 @@ use Icinga\Date\DateFormatter;
 
 use ipl\Html\Table;
 use ipl\Html\Html;
+use ipl\Web\Url;
+use ipl\Web\Widget\Link;
 use ipl\I18n\Translation;
 
 class IncidentTable extends Table
 {
     use Translation;
 
-    protected $defaultAttributes = ['class' => 'common-table'];
+    protected $defaultAttributes = [
+        'class' => 'common-table table-row-selectable incident-table',
+        'data-base-target' => '_next',
+    ];
 
     protected $incidents;
 
@@ -38,8 +43,12 @@ class IncidentTable extends Table
                 DateFormatter::timeSince(strtotime($incident->db_created_at), true)
             );
 
+            $title = Html::tag('span')->add(
+                new Link($incident->incident_number, Url::fromPath('servicenow/incident', ['id' => $incident->id]))
+            );
+
             $r = Table::row([
-                $incident->incident_number,
+                $title,
                 $incident->notification_output,
                 $created,
             ]);
