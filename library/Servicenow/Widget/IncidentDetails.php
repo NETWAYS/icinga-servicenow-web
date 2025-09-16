@@ -100,12 +100,14 @@ class IncidentDetails extends Table
             return $this->incident->incident_number;
         }
 
-        $url = rtrim($base, '/') . '/nav_to.do';
-        $params = ['uri' => 'incident.do', 'sys_id' => $this->incident->sys_id];
+        // So normally we would use ipl\Web\Url, however,
+        // since this URL does not conform to the split params by ? and then use &
+        // we have to do this:
+        $url = rtrim($base, '/') . '/nav_to.do?uri=incident.do' . '?sys_id=' . $this->incident->sys_id;
 
         $l = new Link(
             [$this->incident->incident_number, ' ', new Icon('arrow-up-right-from-square')],
-            Url::fromPath($url, $params),
+            $url,
             ['class' => 'action-link', 'title' => 'View in ServiceNow', 'target' => '_blank']
         );
 

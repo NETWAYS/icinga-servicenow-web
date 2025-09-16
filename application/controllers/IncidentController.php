@@ -26,6 +26,8 @@ class IncidentController extends CompatController
             ->filter(Filter::equal('id', $id))
             ->first();
 
+        // TODO: Return if there is no incident
+
         $this->addContent(new IncidentDetails($incident));
     }
 }
