@@ -41,14 +41,14 @@ class SnowConfigForm extends ConfigForm
         ]);
 
         $this->addElement('number', 'servicenow_api_timeout', [
-            'label' => t('HTTP timeout in seconds'),
+            'label' => t('HTTP timeout for the daemon in seconds'),
             'description' => t('HTTP timeout for the API in seconds. Should be higher than 0'),
             'required' => true,
             'placeholder' => 10,
         ]);
 
         $this->addElement('checkbox', 'servicenow_api_tls_insecure', [
-            'description' => t('Skip the TLS verification'),
+            'description' => t('Skip the TLS verification for the daemon'),
             'label' => t('Skip the TLS verification')
         ]);
 

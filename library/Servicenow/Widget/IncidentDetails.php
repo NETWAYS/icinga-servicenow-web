@@ -122,7 +122,7 @@ class IncidentDetails extends Table
 
         $this->addKeyValue($this->translate('Host'), $this->generateObjectLink($this->incident->host_name));
 
-        if (isset($this->incident->service_name)) {
+        if (isset($this->incident->service_name) && $this->incident->service_name !== '') {
             $this->addKeyValue($this->translate('Service'), $this->generateObjectLink($this->incident->host_name, $this->incident->service_name));
         }
     }
