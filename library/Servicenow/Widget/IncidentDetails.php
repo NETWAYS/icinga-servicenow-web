@@ -46,11 +46,8 @@ class IncidentDetails extends Table
      * icingadb/service?name=SERVICE&host.name=HOST
      * monitoring/service/show?host=HOST&service=SERVICE
     */
-    protected function generateObjectLink()
+    protected function generateObjectLink($host_name, $service_name = null)
     {
-        $host_name = $this->incident->host_name;
-        $service_name = $this->incident->service_name;
-
         if (Module::exists('icingadb') && IcingadbSupport::useIcingaDbAsBackend()) {
             $text = $host_name;
             $basePath = 'icingadb/';
@@ -123,10 +120,10 @@ class IncidentDetails extends Table
         $this->addKeyValue($this->translate('Type'), $this->incident->notification_type);
         $this->addKeyValue($this->translate('State'), $this->incident->notification_state);
 
-        $this->addKeyValue($this->translate('Host'), $this->generateObjectLink());
+        $this->addKeyValue($this->translate('Host'), $this->generateObjectLink($this->incident->host_name));
 
         if (isset($this->incident->service_name)) {
-            $this->addKeyValue($this->translate('Service'), $this->generateObjectLink());
+            $this->addKeyValue($this->translate('Service'), $this->generateObjectLink($this->incident->host_name, $this->incident->service_name));
         }
     }
 }
