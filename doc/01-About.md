@@ -18,7 +18,9 @@ Once the daemon receives a notification it will transform it into a format Servi
 this is done using templates.
 
 The daemon also stores the incident in its own database to keep track of incidents.
-This database is synchronized with ServiceNow on a regular inverval (120 seconds, currently not configurable)
+This database is synchronized with ServiceNow on a regular interval (120 seconds, currently not configurable)
 (Note: this means some changes are not visible in the interface immediately).
 
-The daemon will regurlary remove resolved incidents from the database (older than 30 days, currently not configurable)
+Once an incident is resolved in the database it will not be opened again, even if the state in ServiceNow changes.
+
+The daemon will regularly remove resolved incidents from the database (older than 30 days, currently not configurable)
