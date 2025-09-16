@@ -1,3 +1,5 @@
+**Note:** This is an early release that is still in development and prone to change
+
 # Icinga ServiceNow Integration Web
 
 An Icinga2 integration with ServiceNow Incident Management.
