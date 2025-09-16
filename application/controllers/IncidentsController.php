@@ -23,9 +23,10 @@ class IncidentsController extends CompatController
 
         $db = $this->getDb();
 
-        $f = Filter::all(
+        // This currently shows all incidents for the host.
+        // Not sure if this is a bug or a feature.
+        $f = Filter::any(
             Filter::equal('host_name', $host),
-            Filter::unlike('service_name', '*')
         );
 
         if (isset($service)) {
