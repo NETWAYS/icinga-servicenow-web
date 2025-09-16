@@ -39,6 +39,10 @@ class IncidentsController extends CompatController
             ->filter($f)
             ->orderBy('db_created_at', SORT_ASC);
 
+        $paginationControl = $this->createPaginationControl($incidents);
+
+        $this->addControl($paginationControl);
+
         $this->addContent(new IncidentTable($incidents));
     }
 }
