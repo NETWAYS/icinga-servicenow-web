@@ -9,5 +9,4 @@ $this->provideHook('icingadb/HostActions');
 $this->provideHook('icingadb/ServiceActions');
 $this->provideHook('icingadb/IcingadbSupport');
 
-// TODO: The hook sometimes crashes the page
-// $this->provideHook('health', 'SnowHealth');
+$this->provideHook('health', 'SnowHealth');
