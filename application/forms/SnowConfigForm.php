@@ -23,8 +23,8 @@ class SnowConfigForm extends ConfigForm
     public function createElements(array $formData)
     {
         $this->addElement('text', 'servicenow_api_url', [
-            'label' => t('API URL'),
-            'description' => t('The URL for Servicenow including the scheme'),
+            'label' => t('Icinga ServiceNow Daemon API URL'),
+            'description' => t('The URL to the daemon including the scheme'),
             'required' => true,
             'placeholder' => 'http://localhost:5910',
         ]);
@@ -50,6 +50,13 @@ class SnowConfigForm extends ConfigForm
         $this->addElement('checkbox', 'servicenow_api_tls_insecure', [
             'description' => t('Skip the TLS verification'),
             'label' => t('Skip the TLS verification')
+        ]);
+
+        $this->addElement('text', 'servicenow_instance_url', [
+            'label' => t('ServiceNow Instance URL'),
+            'description' => t('The URL for the ServiceNow instance. If configured an external link to ServiceNow will be shown in the incident details.'),
+            'required' => false,
+            'placeholder' => 'https://example.service-now.com',
         ]);
     }
 
