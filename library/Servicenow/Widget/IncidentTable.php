@@ -30,8 +30,9 @@ class IncidentTable extends Table
     {
         $this->getHeader()->addHtml(self::row([
             $this->translate('Incident'),
-            $this->translate('Summary'),
+            $this->translate('Status'),
             $this->translate('Created'),
+            $this->translate('Summary'),
         ], null, 'th'));
 
         $tbody = $this->getBody();
@@ -47,10 +48,14 @@ class IncidentTable extends Table
                 new Link($incident->incident_number, Url::fromPath('servicenow/incident', ['id' => $incident->id]))
             );
 
+            // Since 'Recovery' is our universal mark for 'is closed'
+            $status = ($incident->notification_type === 'Recovery') ? $this->translate('Resolved') : $this->translate('Open');
+
             $r = Table::row([
                 $title,
-                $incident->notification_output,
+                $status,
                 $created,
+                $incident->notification_output,
             ]);
 
             $tbody->addHtml($r);
