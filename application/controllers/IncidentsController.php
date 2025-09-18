@@ -70,10 +70,9 @@ class IncidentsController extends CompatController
         $limitControl = $this->createLimitControl();
         $sortControl = $this->createSortControl($incidents, [
             'incident.db_created_at' => 'Created',
-            // 'incident.service_name' => 'Service',
-            // 'incident.host_name' => 'Host',
+            'incident.service_name' => 'Service',
+            'incident.host_name' => 'Host',
         ]);
-
 
         $searchBar = $this->createSearchBar($incidents, [
             $limitControl->getLimitParam(),

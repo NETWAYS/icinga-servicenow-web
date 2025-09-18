@@ -32,7 +32,8 @@ class IncidentTable extends Table
             $this->translate('Incident'),
             $this->translate('Status'),
             $this->translate('Created'),
-            $this->translate('Summary'),
+            $this->translate('Host'),
+            $this->translate('Service'),
         ], null, 'th'));
 
         $tbody = $this->getBody();
@@ -55,7 +56,8 @@ class IncidentTable extends Table
                 $title,
                 $status,
                 $created,
-                $incident->notification_output,
+                $incident->host_name,
+                $incident->service_name,
             ]);
 
             $tbody->addHtml($r);

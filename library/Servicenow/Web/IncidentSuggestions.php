@@ -35,14 +35,6 @@ class IncidentSuggestions extends Suggestions
 
     protected function fetchValueSuggestions($column, $searchTerm, Filter\Chain $searchFilter)
     {
-        $query = Incident::on($this->db);
-
-        $query->columns($column);
-        $query->filter(Filter::like($column, $searchTerm));
-
-        foreach ($query as $row) {
-            yield $row->$column;
-        }
     }
 
     protected function fetchColumnSuggestions($searchTerm)
