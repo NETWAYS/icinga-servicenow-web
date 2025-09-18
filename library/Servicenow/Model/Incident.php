@@ -37,6 +37,16 @@ class Incident extends Model
 
     public function getSearchColumns()
     {
-        return ['id'];
+        return ['sys_id', 'incident_number', 'host_name', 'service_name', 'notification_type'];
+    }
+
+    public function getColumnDefinitions()
+    {
+        return ['sys_id' => 'SysID',
+                'incident_number' => 'Number',
+                'host_name' => 'Host',
+                'service_name' => 'Service',
+                'notification_type' => 'Type',
+        ];
     }
 }

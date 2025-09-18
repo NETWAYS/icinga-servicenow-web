@@ -5,6 +5,7 @@ namespace Icinga\Module\Servicenow\Controllers;
 use Icinga\Module\Servicenow\Common\Database;
 use Icinga\Module\Servicenow\Model\Incident;
 use Icinga\Module\Servicenow\Widget\IncidentDetails;
+use Icinga\Module\Servicenow\Widget\IncidentQuickActions;
 
 use ipl\Web\Compat\CompatController;
 use ipl\Html\Html;
@@ -31,5 +32,13 @@ class IncidentController extends CompatController
         }
 
         $this->addContent(new IncidentDetails($incident));
+
+        $this->addControl(
+            (new IncidentQuickActions($incident))
+                ->on(IncidentQuickActions::ON_SUCCESS, function () use ($incident) {
+                    $this->redirectNow('__CLOSE__');
+                })
+                ->handleRequest($this->getServerRequest())
+        );
     }
 }

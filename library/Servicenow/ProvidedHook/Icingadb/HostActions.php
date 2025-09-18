@@ -18,8 +18,7 @@ class HostActions extends HostActionsHook
                 Url::fromPath(
                     'servicenow/incidents',
                     [
-                        'host' => $host->name,
-                        'all' => true
+                        'host_name' => $host->name
                     ]
                 )
             )
