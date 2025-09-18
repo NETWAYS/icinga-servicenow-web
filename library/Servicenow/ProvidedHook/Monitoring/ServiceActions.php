@@ -19,8 +19,8 @@ class ServiceActions extends ServiceActionsHook
             'ServiceNow Incidents' => Url::fromPath(
                 'servicenow/incidents',
                 [
-                    'host' => $service->host_name,
-                    'service' => $service->service_description,
+                    'host_name' => $service->host_name,
+                    'service_name' => $service->service_description,
                 ]
             )
         ];

@@ -2,6 +2,12 @@
 
 /** @var \Icinga\Application\Modules\Module $this */
 
+$section = $this->menuSection(N_('ServiceNow'))
+    ->setUrl('servicenow/incidents')
+    ->setPriority(63)
+    ->setIcon('tasks');
+$section->add(N_('Incidents'))->setUrl('servicenow/incidents')->setPriority(10);
+
 $this->provideConfigTab('daemon', [
     'label' => t('ServiceNow Daemon'),
     'title' => t('Configure the ServiceNow daemon'),
