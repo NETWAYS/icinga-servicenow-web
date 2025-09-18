@@ -46,7 +46,45 @@ icingacli servicenow --state OK --type DowntimeEnd \
 
 In Icinga 2, a related `NotificationCommand` definition could look like this:
 
-```
+```bash
+object NotificationCommand "servicenow-host-notification" {
+  command = [ "/usr/bin/icingacli", "servicenow", "send", "notification" ]
+
+  arguments += {
+    "--host" = {
+      required = true
+      value = "$notification_hostname$"
+    }
+    "--output" = {
+      required = true
+      value = "$notification_output$"
+    }
+    "--state" = {
+      required = true
+      value = "$notification_state$"
+    }
+    "--type" = {
+      required = true
+      value = "$notification_type$"
+    }
+    "--template" = {
+       value = "$snow_template$"
+    }
+    "--name" = {
+       value = "$snow_name$"
+    }
+  }
+
+  vars += {
+    notification_type = "$notification.type$"
+    notification_hostname = "$host.name$"
+    notification_output = "$host.output$"
+    notification_state = "$host.state$"
+    notification_name = "$snow.name$"
+    notification_template = "$snow.template$"
+  }
+}
+
 object NotificationCommand "servicenow-service-notification" {
   command = [ "/usr/bin/icingacli", "servicenow", "send", "notification" ]
 
@@ -61,11 +99,11 @@ object NotificationCommand "servicenow-service-notification" {
     }
     "--output" = {
       required = true
-      value = "$notification_serviceoutput$"
+      value = "$notification_output$"
     }
     "--state" = {
       required = true
-      value = "$notification_servicestate$"
+      value = "$notification_state$"
     }
     "--type" = {
       required = true
@@ -83,10 +121,28 @@ object NotificationCommand "servicenow-service-notification" {
     notification_type = "$notification.type$"
     notification_hostname = "$host.name$"
     notification_servicename = "$service.name$"
-    notification_serviceoutput = "$service.output$"
-    notification_servicestate = "$service.state$"
-    notification_name= "$snow.name$"
+    notification_output = "$service.output$"
+    notification_state = "$service.state$"
+    notification_name = "$snow.name$"
     notification_template = "$snow.template$"
   }
+}
+```
+
+```bash
+template Notification "snow-host-notification" {
+  command = "servicenow-host-notification"
+
+  types = [ Problem, Acknowledgement, Recovery, Custom,
+            FlappingStart, FlappingEnd,
+            DowntimeStart, DowntimeEnd, DowntimeRemoved ]
+}
+
+template Notification "snow-svc-notification" {
+  command = "servicenow-service-notification"
+
+  states = [ OK, Warning, Critical, Unknown ]
+  types = [ Problem, Acknowledgement, Recovery, FlappingStart, FlappingEnd,
+            DowntimeStart, DowntimeEnd, DowntimeRemoved ]
 }
 ```
