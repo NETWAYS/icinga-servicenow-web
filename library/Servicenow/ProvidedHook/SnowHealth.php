@@ -26,7 +26,7 @@ class SnowHealth extends HealthHook
         $output = $status['output'] ?? '';
 
         if (isset($status['error'])) {
-            $message = [$this->translate('Icinga ServiceNow is not connected to Daemon'), $output];
+            $message = [$this->translate('Icinga ServiceNow Web is not connected to daemon'), $output];
 
             $this->setMessage(implode(': ', array_filter($message)));
             $this->setState(self::STATE_CRITICAL);
@@ -36,14 +36,28 @@ class SnowHealth extends HealthHook
 
         $details = json_decode($output, true);
         $database = $details['database'] ?? "";
+        $snow = $details['snow'] ?? "";
 
-        if ($database === 'OK') {
-            $this->setState(self::STATE_OK);
-        } else {
-            $this->setState(self::STATE_WARNING);
+        if ($database !== 'OK') {
+            $message = [$this->translate('Icinga ServiceNow daemon is not connected to database'), $output];
+
+            $this->setMessage(implode(': ', array_filter($message)));
+            $this->setState(self::STATE_CRITICAL);
+
+            return;
         }
 
-        $message = [$this->translate('Icinga ServiceNow connected to Daemon'), $output];
+        if ($snow !== 'OK') {
+            $message = [$this->translate('Icinga ServiceNow daemon is not connected to ServiceNow'), $output];
+
+            $this->setMessage(implode(': ', array_filter($message)));
+            $this->setState(self::STATE_CRITICAL);
+
+            return;
+        }
+
+        $message = [$this->translate('Icinga ServiceNow Web is connected to daemon'), $output];
         $this->setMessage(implode(': ', array_filter($message)));
+        $this->setState(self::STATE_OK);
     }
 }
