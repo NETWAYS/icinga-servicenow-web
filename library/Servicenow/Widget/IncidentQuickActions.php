@@ -33,6 +33,7 @@ class IncidentQuickActions extends Form
         return $this->hasBeenSent() && $this->getPressedSubmitElement();
     }
 
+    // TODO: Not yet implemented
     // protected function assembleResolveButton(): void
     // {
     //     $this->addElement(
@@ -55,7 +56,7 @@ class IncidentQuickActions extends Form
                 'class' => ['control-button', 'confirm-button', 'spinner'],
                 'label' => [t('Delete')],
                 'data-confirmation' => t('Confirm'),
-                'title' => t('Delete this incident from the database')
+                'title' => t('Delete this incident from the database. This will not affect the incident in ServiceNow')
             ]
         );
     }
