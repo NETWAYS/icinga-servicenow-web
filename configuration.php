@@ -6,7 +6,9 @@ $section = $this->menuSection(N_('ServiceNow'))
     ->setUrl('servicenow/incidents')
     ->setPriority(63)
     ->setIcon('tasks');
+
 $section->add(N_('Incidents'))->setUrl('servicenow/incidents')->setPriority(10);
+$section->add(N_('Templates'))->setUrl('servicenow/templates')->setPriority(20);
 
 $this->provideConfigTab('daemon', [
     'label' => t('ServiceNow Daemon'),

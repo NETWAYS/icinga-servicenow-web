@@ -40,7 +40,7 @@ class IncidentsController extends CompatController
 
     public function indexAction()
     {
-        $this->addContent(Html::tag('h1', 'ServiceNow Incident'));
+        $this->addContent(Html::tag('h1', 'ServiceNow Incidents'));
 
         $host = $this->params->get('host_name');
         $service = $this->params->get('service_name');
