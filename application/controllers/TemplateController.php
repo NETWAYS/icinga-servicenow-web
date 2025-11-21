@@ -21,7 +21,7 @@ class TemplateController extends CompatController
     {
         $id = $this->params->get('id');
 
-        $this->addContent(Html::tag('h1', 'ServiceNow Template'));
+        $this->addTitleTab(t('ServiceNow Template'));
 
         $db = $this->getDb();
 

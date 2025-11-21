@@ -7,7 +7,6 @@ use Icinga\Module\Servicenow\Model\Incident;
 use Icinga\Module\Servicenow\Widget\IncidentTable;
 use Icinga\Module\Servicenow\Web\IncidentSuggestions;
 
-use ipl\Html\Html;
 use ipl\Stdlib\Filter;
 use ipl\Web\Compat\CompatController;
 use ipl\Web\Compat\SearchControls;
@@ -40,7 +39,7 @@ class IncidentsController extends CompatController
 
     public function indexAction()
     {
-        $this->addContent(Html::tag('h1', 'ServiceNow Incidents'));
+        $this->addTitleTab(t('ServiceNow Incidents'));
 
         $host = $this->params->get('host_name');
         $service = $this->params->get('service_name');

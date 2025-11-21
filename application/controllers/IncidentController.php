@@ -8,7 +8,6 @@ use Icinga\Module\Servicenow\Widget\IncidentDetails;
 use Icinga\Module\Servicenow\Widget\IncidentQuickActions;
 
 use ipl\Web\Compat\CompatController;
-use ipl\Html\Html;
 use ipl\Stdlib\Filter;
 
 class IncidentController extends CompatController
@@ -19,7 +18,7 @@ class IncidentController extends CompatController
     {
         $id = $this->params->get('id');
 
-        $this->addContent(Html::tag('h1', 'ServiceNow Incident'));
+        $this->addTitleTab(t('ServiceNow Incident'));
 
         $db = $this->getDb();
 

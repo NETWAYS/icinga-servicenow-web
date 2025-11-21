@@ -7,7 +7,6 @@ use Icinga\Module\Servicenow\Model\Template;
 use Icinga\Module\Servicenow\Widget\TemplateTable;
 
 use ipl\Html\Attributes;
-use ipl\Html\Html;
 use ipl\Html\HtmlElement;
 use ipl\Web\Compat\CompatController;
 use ipl\Web\Widget\Link;
@@ -18,7 +17,7 @@ class TemplatesController extends CompatController
 
     public function indexAction()
     {
-        $this->addContent(Html::tag('h1', 'ServiceNow Templates'));
+        $this->addTitleTab(t('ServiceNow Templates'));
 
         $db = $this->getDb();
 
