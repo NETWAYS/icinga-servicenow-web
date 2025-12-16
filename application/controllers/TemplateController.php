@@ -14,6 +14,11 @@ class TemplateController extends CompatController
 {
     use Database;
 
+    public function init(): void
+    {
+        $this->assertPermission('servicenow/template/edit');
+    }
+
     public function indexAction()
     {
         $id = $this->params->get('id');
