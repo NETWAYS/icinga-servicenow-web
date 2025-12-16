@@ -39,11 +39,11 @@ class TemplateController extends CompatController
                     Notification::success('Template has been removed');
                     $this->redirectNow('__CLOSE__');
                 }
-            })
-            ->on(TemplateForm::ON_SUBMIT, function (TemplateForm $form) {
-                $form->upsertTemplate();
-                Notification::success('Template has been stored');
-                $this->redirectNow('__CLOSE__');
+                if ($form->hasBeenSaved()) {
+                    $form->upsertTemplate();
+                    Notification::success('Template has been stored');
+                    $this->redirectNow('__CLOSE__');
+                }
             })->handleRequest($this->getServerRequest());
 
         $this->addContent($tf);

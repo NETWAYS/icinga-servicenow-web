@@ -27,7 +27,7 @@ class TemplateForm extends CompatForm
         $this->db = $db;
     }
 
-    public function hasBeenSubmitted()
+    public function hasBeenSaved()
     {
         $btn = $this->getPressedSubmitElement();
         $csrf = $this->getElement('CSRFToken');
@@ -102,8 +102,6 @@ class TemplateForm extends CompatForm
 
         $this->add(Html::tag('h2', 'Fields'));
 
-        $add = $this->createAddButton();
-
         $expectedCount = (int) $this->getPopulatedValue('count', 0); // Want we get from poplulate or it's 0 (new template)
         $count = 0; // Increases until $expectedCount is reached, ensuring proper association with form data
         $actualCount = 0; // The actual number of restored elements, minus the one that has been removed
@@ -127,9 +125,10 @@ class TemplateForm extends CompatForm
             $count++;
         }
 
-        $add = $this->createAddButton();
-        $this->registerElement($add);
-        if ($add->hasBeenPressed()) {
+        $addBtn = $this->createAddButton();
+        $this->registerElement($addBtn);
+        $this->decorate($addBtn);
+        if ($addBtn->hasBeenPressed()) {
             $this->createRemoveButton($actualCount);
             $actualCount++;
         }
@@ -148,19 +147,29 @@ class TemplateForm extends CompatForm
         $this->clearPopulatedValue('count');
         $this->addElement('hidden', 'count', ['ignore' => true, 'value' => $actualCount]);
 
-        $this->addElement($add);
+        $btns = Html::tag('div', ['class' => 'control-group form-controls']);
 
-        $this->addElement('submit', 'remove', [
+        $removeBtn = $this->createElement('submit', 'remove', [
             'title' => $this->translate('Remove Template'),
             'label' => $this->translate('Remove Template'),
             'data-confirmation' => $this->translate('Confirm'),
             'class' => ['btn-remove', 'confirm-button']
         ]);
+        $this->registerElement($removeBtn);
+        $this->decorate($removeBtn);
+        $btns->add($removeBtn);
 
-        $this->addElement('submit', 'save', [
+        $btns->add($addBtn);
+
+        $saveBtn = $this->createElement('submit', 'save', [
             'title' => $this->translate('Save Template'),
             'label' => $this->translate('Save Template'),
         ]);
+        $this->registerElement($saveBtn);
+        $this->decorate($saveBtn);
+        $btns->add($saveBtn);
+
+        $this->add($btns);
     }
 
     public function removeTemplate(): void
