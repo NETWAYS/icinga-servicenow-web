@@ -8,10 +8,7 @@ use Icinga\Module\Servicenow\Forms\TemplateForm;
 use Icinga\Web\Notification;
 
 use ipl\Web\Compat\CompatController;
-use ipl\Html\Html;
 use ipl\Stdlib\Filter;
-
-// use Psr\Http\Message\ServerRequestInterface;
 
 class TemplateController extends CompatController
 {
@@ -29,28 +26,25 @@ class TemplateController extends CompatController
             ->filter(Filter::equal('id', $id))
             ->first();
 
+        $tf = new TemplateForm($db);
         // If we have a template, then render its fields
-        $tf = new TemplateForm($db, $template);
-
-        if ($template !== null) {
-            $tf->populate(['display_name' => $template->display_name]);
-            $tf->populate(['template_json' => $template->fields]);
+        if (isset($template)) {
+            $tf->load($template);
         }
 
-        $tf->on(TemplateForm::ON_SENT, function (TemplateForm $form) use ($id) {
-            if ($form->hasBeenRemoved()) {
-                $form->removeTemplate();
-                Notification::success('Successfully removed template');
-                $this->redirectNow('__CLOSE__');
-            }
-            if ($form->hasBeenSaved()) {
+        $tf
+            ->on(TemplateForm::ON_SENT, function (TemplateForm $form) {
+                if ($form->hasBeenRemoved()) {
+                    $form->removeTemplate();
+                    Notification::success('Template has been removed');
+                    $this->redirectNow('__CLOSE__');
+                }
+            })
+            ->on(TemplateForm::ON_SUBMIT, function (TemplateForm $form) {
                 $form->upsertTemplate();
-                Notification::success('Successfully saved template');
+                Notification::success('Template has been stored');
                 $this->redirectNow('__CLOSE__');
-            }
-        });
-
-        $tf->handleRequest($this->getServerRequest());
+            })->handleRequest($this->getServerRequest());
 
         $this->addContent($tf);
     }
