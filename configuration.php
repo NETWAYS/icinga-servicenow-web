@@ -2,6 +2,8 @@
 
 /** @var \Icinga\Application\Modules\Module $this */
 
+$this->providePermission('servicenow/template/edit', $this->translate('Allow the user to edit templates'));
+
 $section = $this->menuSection(N_('ServiceNow'))
     ->setUrl('servicenow/incidents')
     ->setPriority(63)
