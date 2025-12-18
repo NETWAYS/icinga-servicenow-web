@@ -1,3 +1,28 @@
+.snow-template-field {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.snow-input-wrapper {
+  display: flex;
+  gap: 0.2rem;
+  flex: 1;
+}
+
+.snow-template-field input[type="text"] {
+  flex: 1
+}
+
+.btn-remove-field {
+  border: none;
+  &:hover {
+      color: @color-critical-accentuated;
+      background: none;
+  }
+}
+
+// Incident body
 .incident-output {
     text-overflow: ellipsis " [..]";
 }

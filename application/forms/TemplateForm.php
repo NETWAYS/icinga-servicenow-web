@@ -49,6 +49,7 @@ class TemplateForm extends CompatForm
             'formnovalidate' => true,
             'title' => $this->translate('Remove this field from template'),
             'label' => new Icon('x'),
+            'class' => ['btn-remove-field'],
         ]);
 
         $this->registerElement($remove);
