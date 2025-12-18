@@ -3,7 +3,9 @@
 namespace Icinga\Module\Servicenow\Forms;
 
 use ipl\Html\FormElement\FieldsetElement;
+use ipl\Html\FormElement\InputElement;
 use ipl\Html\FormElement\SubmitButtonElement;
+use ipl\Html\Html;
 
 class TemplateField extends FieldsetElement
 {
@@ -38,15 +40,27 @@ class TemplateField extends FieldsetElement
     {
         $this->addElement('hidden', 'id');
 
-        $this->addElement('text', 'fieldKey', [
+        $inputWrap = Html::tag('div', ['class' => 'snow-input-wrapper']);
+
+        $fKey = new InputElement('fieldKey', [
+            'type'  => 'text',
             'value' => '',
-            'label' => 'Key',
+            'placeholder' => 'Key',
         ]);
 
-        $this->addElement('text', 'fieldValue', [
+        $this->registerElement($fKey);
+        $inputWrap->addHtml($fKey);
+
+        $fVal = new InputElement('fieldValue', [
+            'type'  => 'text',
             'value' => '',
-            'label' => 'Value',
+            'placeholder' => 'Value',
         ]);
+
+        $this->registerElement($fVal);
+        $inputWrap->add($fVal);
+
+        $this->addHtml($inputWrap);
 
         if ($this->removeButton !== null) {
             $this->addHtml($this->removeButton);
