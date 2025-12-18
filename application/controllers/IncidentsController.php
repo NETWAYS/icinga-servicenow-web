@@ -4,8 +4,8 @@ namespace Icinga\Module\Servicenow\Controllers;
 
 use Icinga\Module\Servicenow\Common\Database;
 use Icinga\Module\Servicenow\Model\Incident;
-use Icinga\Module\Servicenow\Widget\IncidentTable;
 use Icinga\Module\Servicenow\Web\IncidentSuggestions;
+use Icinga\Module\Servicenow\Widget\IncidentRenderer;
 
 use ipl\Stdlib\Filter;
 use ipl\Web\Compat\CompatController;
@@ -13,6 +13,8 @@ use ipl\Web\Compat\SearchControls;
 use ipl\Web\Control\LimitControl;
 use ipl\Web\Control\SortControl;
 use ipl\Web\Filter\QueryString;
+use ipl\Web\Layout\ItemLayout;
+use ipl\Web\Widget\ItemList;
 
 class IncidentsController extends CompatController
 {
@@ -97,7 +99,10 @@ class IncidentsController extends CompatController
         $this->addControl($limitControl);
         $this->addControl($searchBar);
 
-        $this->addContent(new IncidentTable($incidents));
+        $list = (new ItemList($incidents, new IncidentRenderer()))
+            ->setItemLayoutClass(ItemLayout::class);
+
+        $this->addContent($list);
 
         if (! $searchBar->hasBeenSubmitted() && $searchBar->hasBeenSent()) {
             $this->sendMultipartUpdate();
