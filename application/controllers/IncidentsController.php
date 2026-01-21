@@ -65,7 +65,7 @@ class IncidentsController extends CompatController
 
         $db = $this->getDb();
 
-        $incidents = Incident::on($db)->orderBy('db_created_at', SORT_ASC);
+        $incidents = Incident::on($db);
 
         $paginationControl = $this->createPaginationControl($incidents);
         $limitControl = $this->createLimitControl();
@@ -73,6 +73,8 @@ class IncidentsController extends CompatController
             'incident.db_created_at' => 'Created',
             'incident.service_name' => 'Service',
             'incident.host_name' => 'Host',
+            'incident.notification_state' => 'State',
+            'incident.notification_type' => 'Type',
         ]);
 
         $searchBar = $this->createSearchBar($incidents, [
