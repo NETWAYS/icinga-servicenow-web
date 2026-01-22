@@ -55,6 +55,10 @@ class IncidentRenderer implements ItemRenderer
 
         $t = new Text('Incident for ' . $item->service_name . ' on ' . $item->host_name);
 
+        if ($item->service_name == "") {
+            $t = new Text('Incident on ' . $item->host_name);
+        }
+
         $title->addHtml($t);
     }
 
