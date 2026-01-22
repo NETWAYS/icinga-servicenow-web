@@ -9,6 +9,7 @@ use Icinga\Web\Notification;
 
 use ipl\Web\Compat\CompatController;
 use ipl\Stdlib\Filter;
+use PDOException;
 
 class TemplateController extends CompatController
 {
@@ -45,9 +46,18 @@ class TemplateController extends CompatController
                     $this->redirectNow('__CLOSE__');
                 }
                 if ($form->hasBeenSaved()) {
-                    $form->upsertTemplate();
-                    Notification::success('Template has been stored');
-                    $this->redirectNow('__CLOSE__');
+                    try {
+                        $form->upsertTemplate();
+                        Notification::success('Template has been stored');
+                        $this->redirectNow('__CLOSE__');
+                    } catch (PDOException $e) {
+                        if ($e->getCode() == 23000) {
+                            $displayName = $form->getValue('display_name');
+                            Notification::error(t(sprintf('Template with name %s already exists', $displayName)));
+                        } else {
+                            Notification::error($e->getMessage());
+                        }
+                    }
                 }
             })->handleRequest($this->getServerRequest());
 

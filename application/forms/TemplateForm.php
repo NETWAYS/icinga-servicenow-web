@@ -199,6 +199,7 @@ class TemplateForm extends CompatForm
         }
 
         $this->db->update('template', [
+            'display_name' => $displayName,
             'fields' => $fields
         ], ['id = ?' => $this->template->id]);
     }
