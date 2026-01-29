@@ -27,10 +27,10 @@ class SendCommand extends Command
      *   --output <icinga-notifiaction-output>
      *   --name <icinga-notifiaction-name>
      *   --host <host-name> Icinga Host name
-     *   --template <service-now-template>
      *
      * OPTIONAL
      *
+     *   --template <service-now-template>
      *   --service <service-name>    Icinga Service name
      *   --is-volatile <true|false>  Is this a volatile Host or Service (default: false)
      *   --extra <key=value>       Additional key-value fields to send, like --extra description=value, keep in mind --extra="key=value" is not allowed
@@ -43,7 +43,9 @@ class SendCommand extends Command
         $notificationOutput = $this->params->getRequired('output');
         $notificationName = $this->params->getRequired('name');
         $hostName = $this->params->getRequired('host');
-        $template = $this->params->getRequired('template');
+
+        // Default to ""
+        $template = $this->params->get('template', "");
 
         // Default to ""
         $serviceName = $this->params->get('service', "");
