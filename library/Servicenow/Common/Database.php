@@ -3,8 +3,11 @@ namespace Icinga\Module\Servicenow\Common;
 
 use Icinga\Application\Config as IcingaConfig;
 use Icinga\Data\ResourceFactory;
+
 use ipl\Sql\Config as SqlConfig;
 use ipl\Sql\Connection;
+use ipl\Web\Url;
+
 use LogicException;
 use PDO;
 
@@ -30,9 +33,13 @@ trait Database
      *
      * @throws \Icinga\Exception\ConfigurationError
      */
-    protected function getDB(): Connection
+    protected function getDB(bool $redirectOnError = true): Connection
     {
         if (! $this->hasSNOWDb()) {
+            if ($redirectOnError) {
+                $this->redirectNow(Url::fromPath('servicenow/setup'));
+            }
+
             throw new LogicException('Please check if a db resource was configured');
         }
 
