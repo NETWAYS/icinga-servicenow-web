@@ -5,15 +5,15 @@ This module provides a CLI command to send notifications to the Icinga ServiceNo
 Sending Problem notifications:
 
 ```bash
-icingacli servicenow --state Critical --type Problem \
+icingacli servicenow send notification --state Critical --type Problem \
 --output "This host is on fire!" \
 --host Node2 --name "generic" --template "mytemplate"
 
-icingacli servicenow --state Critical --type Acknowledgement \
+icingacli servicenow send notification --state Critical --type Acknowledgement \
 --output "Get some water." \
 --host Node2 --name "generic" --template "mytemplate"
 
-icingacli servicenow --state OK --type Recovery \
+icingacli servicenow send notification --state OK --type Recovery \
 --output "Splash!" \
 --host Node2 --name "generic" --template "mytemplate"
 ```
@@ -21,11 +21,11 @@ icingacli servicenow --state OK --type Recovery \
 Sending Downtime notifications:
 
 ```bash
-icingacli servicenow --state OK --type DowntimeStart \
+icingacli servicenow send notification --state OK --type DowntimeStart \
 --output "Maintenance started" \
 --host Node1 --name "generic" --template "mytemplate"
 
-icingacli servicenow --state OK --type DowntimeEnd \
+icingacli servicenow send notification --state OK --type DowntimeEnd \
 --output "Maintenance ended" \
 --host Node1 --name "generic" --template "mytemplate"
 ```
@@ -33,13 +33,23 @@ icingacli servicenow --state OK --type DowntimeEnd \
 Sending Flapping notifications:
 
 ```bash
-icingacli servicenow --state OK --type FlappingStart \
+icingacli servicenow send notification --state OK --type FlappingStart \
 --output "Flapping started" \
 --host Node1 --name "generic" --template "mytemplate"
 
-icingacli servicenow --state OK --type DowntimeEnd \
+icingacli servicenow send notification --state OK --type DowntimeEnd \
 --output "Flapping ended" \
 --host Node1 --name "generic" --template "mytemplate"
+```
+
+Sending Problem notification with additional fields:
+
+```bash
+icingacli servicenow send notification --state Critical --type Problem \
+--output "An error occured" \
+--host Node1 --name "generic" \
+--extra "short_description=my short description" \
+--extra "description=my description"
 ```
 
 ## Icinga 2 NotificationCommand
@@ -67,11 +77,15 @@ object NotificationCommand "servicenow-host-notification" {
       required = true
       value = "$notification_type$"
     }
-    "--template" = {
-       value = "$snow_template$"
-    }
     "--name" = {
-       value = "$snow_name$"
+      required = true
+      value = "$snow_name$"
+    }
+    "--template" = {
+      value = "$snow_template$"
+    }
+    "--extra" = {
+      value = "$snow_additional_fields$"
     }
   }
 
@@ -82,6 +96,7 @@ object NotificationCommand "servicenow-host-notification" {
     notification_state = "$host.state$"
     notification_name = "$snow.name$"
     notification_template = "$snow.template$"
+    notification_extra = "$snow_additional_fields$"
   }
 }
 
@@ -109,11 +124,15 @@ object NotificationCommand "servicenow-service-notification" {
       required = true
       value = "$notification_type$"
     }
-    "--template" = {
-       value = "$snow_template$"
-    }
     "--name" = {
-       value = "$snow_name$"
+      required = true
+      value = "$snow_name$"
+    }
+    "--template" = {
+      value = "$snow_template$"
+    }
+    "--extra" = {
+      value = "$snow_additional_fields$"
     }
   }
 
@@ -125,6 +144,7 @@ object NotificationCommand "servicenow-service-notification" {
     notification_state = "$service.state$"
     notification_name = "$snow.name$"
     notification_template = "$snow.template$"
+    notification_extra = "$snow_additional_fields$"
   }
 }
 ```
