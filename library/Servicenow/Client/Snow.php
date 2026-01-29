@@ -53,7 +53,8 @@ class Snow
         string $notificationType,
         string $notificationState,
         string $notificationOutput,
-        string $template
+        string $template,
+        array $additionalFields,
     ): Response {
         $data = [
             'json' => [
@@ -65,6 +66,7 @@ class Snow
                 'notification_state' => $notificationState,
                 'notification_output' => $notificationOutput,
                 'template' => $template,
+                'additional_fields' => $additionalFields,
             ]
         ];
 
