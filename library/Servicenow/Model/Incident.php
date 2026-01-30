@@ -35,6 +35,11 @@ class Incident extends Model
         ];
     }
 
+    public function getDefaultSort(): array
+    {
+        return ['incident.db_created_at desc'];
+    }
+
     public function getSearchColumns()
     {
         return ['sys_id', 'incident_number', 'host_name', 'service_name', 'notification_type'];
@@ -44,6 +49,7 @@ class Incident extends Model
     {
         return ['sys_id' => 'SysID',
                 'incident_number' => 'Number',
+                'db_created_at' => 'Created',
                 'host_name' => 'Host',
                 'service_name' => 'Service',
                 'notification_type' => 'Type',
