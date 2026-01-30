@@ -117,6 +117,7 @@ class IncidentDetails extends Table
 
         $this->addKeyValue($this->translate('Incident'), $this->generateIncidentLink());
         $this->addKeyValue($this->translate('Created'), $this->incident->db_created_at);
+        $this->addKeyValue($this->translate('Last updated'), $this->incident->db_last_updated_at);
         $this->addKeyValue($this->translate('Type'), $this->incident->notification_type);
         $this->addKeyValue($this->translate('State'), $this->incident->notification_state);
 
