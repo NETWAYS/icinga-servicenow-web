@@ -55,11 +55,12 @@ class SendCommand extends Command
 
         // Defaults to []
         $extras = $this->params->get('extra');
-        if (!is_array($extras)) {
-            Logger::error("invalid parameter " . $extras . "; --extra requires key=value as input");
-            $this->showUsage('notification');
-            exit(1);
+
+        // If there is only one --extra given, it won't be an array
+        if (is_string($extras)) {
+            $extras = [$extras];
         }
+
         $additionalFields = $this->getAdditionalFields($extras);
 
         try {
