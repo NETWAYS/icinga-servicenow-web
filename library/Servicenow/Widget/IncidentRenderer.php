@@ -18,6 +18,13 @@ class IncidentRenderer implements ItemRenderer
 {
     use Translation;
 
+    protected function getHandledStateBall(): StateBall
+    {
+        $stateBall = new StateBall('ok', StateBall::SIZE_BIG);
+        $stateBall->setHandled(true);
+        return $stateBall;
+    }
+
     public function assembleAttributes($item, Attributes $attributes, string $layout): void
     {
         $attributes->get('class')->addValue('snow-incident');
@@ -31,16 +38,16 @@ class IncidentRenderer implements ItemRenderer
 
         switch ($tp) {
             case 'acknowledgement':
-                $stateBall->getAttributes()->add('class', 'handled');
+                $stateBall = $this->getHandledStateBall();
                 break;
             case 'recovery':
-                $stateBall->getAttributes()->add('class', 'handled');
+                $stateBall = $this->getHandledStateBall();
                 break;
             case 'flappingend':
-                $stateBall->getAttributes()->add('class', 'handled');
+                $stateBall = $this->getHandledStateBall();
                 break;
             case 'downtimeend':
-                $stateBall->getAttributes()->add('class', 'handled');
+                $stateBall = $this->getHandledStateBall();
                 break;
         }
 
