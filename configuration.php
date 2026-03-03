@@ -23,3 +23,9 @@ $this->provideConfigTab('database', [
     'title' => t('Configure the database backend'),
     'url'   => 'config/database'
 ]);
+
+$this->provideConfigTab('incident', [
+    'label' => t('Incident Fields'),
+    'title' => t('Load incident fields from the ServiceNow API'),
+    'url'   => 'config/incident'
+]);
