@@ -18,5 +18,6 @@ This module is able to:
 
 The Icinga ServiceNow Integration has two components:
 
-* A daemon, which receives notifications and sends them to ServiceNow.
-* An Icinga ServiceNow Web module, to provide a graphical interface and a CLI to send notifications to the daemon.
+* The [Icinga ServiceNow daemon](https://github.com/NETWAYS/icinga-servicenow), which receives notifications and sends them to ServiceNow.
+
+* The [Icinga ServiceNow Web module](https://github.com/NETWAYS/icinga-servicenow-web), to provide a graphical interface and a CLI to send notifications to the daemon.
