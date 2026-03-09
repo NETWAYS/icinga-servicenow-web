@@ -12,6 +12,8 @@ This module is able to:
 * Show a list of open incidents for Host or Service objects
 * Close and acknowledge ServiceNow incidents via Icinga notifications
 
+![Icinga ServiceNow](doc/_images/screenshot_dark.png)
+
 ## How it works
 
 The Icinga ServiceNow Integration has two components:
