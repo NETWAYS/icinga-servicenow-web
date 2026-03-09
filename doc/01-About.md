@@ -12,8 +12,7 @@ This module is able to:
 
 ## How it works
 
-The Icinga ServiceNow Integration has two components: a daemon, which receives notifications and sends them to ServiceNow.
-and an Icinga ServiceNow Web module, to provide a graphical interface and a CLI to send notifications to the daemon.
+The Icinga ServiceNow Integration has two components: a daemon, which receives notifications and sends them to ServiceNow and an Icinga ServiceNow Web module, to provide a graphical interface and a CLI to send notifications to the daemon.
 The daemon receives Icinga notification via HTTP and transforms them into a format that ServiceNow understands.
 
 This transformation is using two components: First, "templates" these are key-value objects that are attached to the notification information. For example:
