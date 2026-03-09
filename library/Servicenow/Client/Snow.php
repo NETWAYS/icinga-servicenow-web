@@ -18,6 +18,7 @@ use Exception;
 class Snow
 {
     protected const INCIDENT_ENDPOINT = '/api/v1/incident';
+    protected const SNOW_INCIDENT_ENDPOINT = '/api/v1/snow-incident';
     protected const STATUS_ENDPOINT = '/-/healthy';
 
     /** @var $this \Icinga\Application\Modules\Module */
@@ -75,6 +76,20 @@ class Snow
         Logger::debug('Calling incident API at %s with data: %s', $url, $data);
 
         $response = $this->client->request('POST', $url, $data);
+
+        return $response;
+    }
+
+    /**
+     * fetch fetches a single incident from ServiceNow
+     */
+    public function fetch(string $incidentNumber): Response
+    {
+        $url = $this->URL . $this::SNOW_INCIDENT_ENDPOINT . '/' . $incidentNumber;
+
+        Logger::debug('Calling incident fetch API at %s', $url);
+
+        $response = $this->client->request('GET', $url);
 
         return $response;
     }

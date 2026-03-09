@@ -39,3 +39,8 @@ resource = "servicenow_db"
 | Option | Description | Default |
 |---|---|---|
 | resource | Name of the database resource to use | "" |
+
+## Incident Fields
+
+The configuration provides a menu to load a single ServiceNow Incident via its sysID.
+This page can be used to examine the available fields and their names in an incident.

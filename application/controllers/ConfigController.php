@@ -4,6 +4,7 @@ namespace Icinga\Module\Servicenow\Controllers;
 
 use Icinga\Module\Servicenow\Forms\SnowConfigForm;
 use Icinga\Module\Servicenow\Forms\DatabaseConfigForm;
+use Icinga\Module\Servicenow\Forms\IncidentForm;
 
 use Icinga\Application\Config;
 use Icinga\Web\Form;
@@ -44,6 +45,17 @@ class ConfigController extends CompatController
         $this->mergeTabs($this->Module()->getConfigTabs()->activate('daemon'));
 
         $this->addFormToContent($form);
+    }
+
+    public function incidentAction()
+    {
+        $this->mergeTabs($this->Module()->getConfigTabs()->activate('incident'));
+
+        $form = new IncidentForm();
+
+        $form->handleRequest($this->getServerRequest());
+
+        $this->addContent($form);
     }
 
     protected function addFormToContent(Form $form)
